@@ -1,30 +1,74 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+	<div>
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col col-sm-9">
+						<h1>Site</h1>
+					</div>
+					<div class="col col-sm-3">
+						<div class="alert alert-default">
+							<div>In Cart: {{ $store.getters['cart/length'] }}</div>
+							<div>In Total: {{ total }}</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+			</div>
+		</header>
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col col-sm-3 menu">
+						<ul class="list-group">
+							<li class="list-group-item" v-for="item in menu" :key="item.route">
+								<router-link :to="{ name: item.route }" exact-active-class="text-danger">
+									{{ item.text }}
+								</router-link>
+							</li>
+						</ul>
+					</div>
+					<div class="col col-sm-9">
+						<router-view />
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
 </template>
 
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+	export default {
+		data: () => ({
+			menu: [
+				{ route: 'catalog', text: 'Products' },
+				{ route: 'cart', text: 'Cart' },
+				{ route: 'checkout', text: 'Order' }
+			]
+		}),
+		computed: {
+			...mapGetters('cart', [ 'total' ])
+		}
+		// $route, $router
+	}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+	.menu{
+		border-right: 1px solid #ddd;
+	}
 
-nav {
-  padding: 30px;
-}
+	.list-group-item{
+		transition: background 0.3s, color 0.3s;
+	}
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+	.list-group-item a{
+		text-decoration: none;
+	}
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+	.list-group-item.active a{
+		color: inherit;
+	}
 </style>
