@@ -15,24 +15,18 @@ export default {
 	mutations: {
 		setItems(state, products) {
 			state.items = products
-		}, 
-		setError(state, err) {
-			state.error = err
-		},
-		setLoader(state) {
-			state.loading = false
-		},
+		}
 	},
 	actions: {
-		async load({commit}) {
+		async load({state, commit}) {
 			try {
 				let response = await fetch('http://faceprog.ru/reactcourseapi/products/all.php')
 				let products = await response.json()
 				commit('setItems', products)
 			} catch(err) {
-				commit('setError', err)
+				state.error = err
 			} finally {
-				commit('setLoader')
+				state.loading = false
 			}
 		}
 	}
