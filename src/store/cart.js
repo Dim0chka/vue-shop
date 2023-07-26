@@ -4,7 +4,8 @@ export default {
 	namespaced: true,
 	state: {
 		items: [],
-		token: null
+		token: null,
+		isLoading: false,
 	},
 	getters: {
 		items: state => state.items,
@@ -20,7 +21,8 @@ export default {
 			return getter.itemsDetails.reduce((acc, item) => {
 				return acc + item.price * item.cnt
 			}, 0)
-		}
+		},
+		isLoading: state => state.isLoading
 		// total: (state, getter, rootState, rootGetters) rootGetters 
 		
 	},
@@ -38,6 +40,9 @@ export default {
 		getCnt(state, {id, cnt}) {
 			let item = state.items.find(item => item.id == id)
 			item.cnt = cnt
+		},
+		setLoading(state, value) {
+			state.isLoading = value
 		}
  	},
 	actions: {
@@ -66,25 +71,39 @@ export default {
 			}
 		},
 		async add({state, commit, getters }, id){
-			if(!getters.inCart(id)){ 
-				let response = await fetch(`${BASEURL}add.php?token=${state.token}&id=${id}`)
-				let res = await response.json()
-				
-				// Мы делаем запрос, получаем рез в json - буллевсоке значение. Если истина, коммити
-				if (res) {
-					commit('add', id);
+			commit('setLoading', true)
+			try {
+				if(!getters.inCart(id)){ 
+					let response = await fetch(`${BASEURL}add.php?token=${state.token}&id=${id}`)
+					let res = await response.json()
+					
+					// Мы делаем запрос, получаем рез в json - буллевсоке значение. Если истина, коммити
+					if (res) {
+						commit('add', id);
+					}
 				}
+			} catch(err) {
+				console.log(err)
+			} finally {
+				commit('setLoading', false)
 			}
 		},
 		async remove({state, commit, getters }, id){
-			if(getters.inCart(id)){
-				let response = await fetch(`${BASEURL}remove.php?token=${state.token}&id=${id}`)
-				let res = await response.json()
-				 
-				// Мы делаем запрос, получаем рез в json - буллевсоке значение. Если истина, коммити
-				if (res) {
-					commit('remove', id);
+			commit('setLoading', true)
+			try {
+				if(getters.inCart(id)){
+					let response = await fetch(`${BASEURL}remove.php?token=${state.token}&id=${id}`)
+					let res = await response.json()
+					 
+					// Мы делаем запрос, получаем рез в json - буллевсоке значение. Если истина, коммити
+					if (res) {
+						commit('remove', id);
+					}
 				}
+			} catch(err) {
+				console.log(err)
+			} finally {
+				commit('setLoading', false)
 			}
 		}
 	}
