@@ -10,23 +10,26 @@ export default {
 	getters: {
 		all: state => state.items,
 		itemId: state => id => state.items.find(item => item.id == id) || false,
-		loading: state => state.loading
+		isLoading: state => state.loading
 	},
 	mutations: {
 		setItems(state, products) {
 			state.items = products
+		},
+		isLoading(state) {
+			state.loading = false
 		}
 	},
 	actions: {
-		async load({state, commit}) {
+		async load({commit}) {
 			try {
 				let response = await fetch('http://faceprog.ru/reactcourseapi/products/all.php')
 				let products = await response.json()
 				commit('setItems', products)
 			} catch(err) {
-				state.error = err
+				console.log(err)
 			} finally {
-				state.loading = false
+				commit('isLoading')
 			}
 		}
 	}
