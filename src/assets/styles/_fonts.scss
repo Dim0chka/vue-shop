@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Gunny Rewritten';
+    src: local('Gunny Rewritten'), local('GunnyRewritten'), 
+    url('/src/assets/fonts/gunnyrewritten.woff2') format('woff2'), 
+    url('/src/assets/fonts/gunnyrewritten.woff') format('woff'), 
+    url('/src/assets/fonts/gunnyrewritten.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+	font-family: 'Comfortaa';
+	src: 
+    url('/src/assets/fonts/Comfortaa-Regular.woff2') format('woff2'), 
+    url('/src/assets/fonts/Comfortaa-Regular.woff') format('woff');
+	font-weight: 1;
+	font-style: normal;
+}

@@ -4,5 +4,5 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: '/',
   filenameHashing: false,
-  productionSourceMap: true
+  productionSourceMap: true,
 })

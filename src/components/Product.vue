@@ -1,9 +1,25 @@
 <template>
 	<div v-if="hasProduct">
-		<h1>Title: {{ product.title }}</h1>
-		<router-link class="link-offset-1 link-secondary" :to="{ name: 'catalog'}">
+		<el-page-header :to="{ name: 'catalog'}">
+			<template #breadcrumb>
+			  <el-breadcrumb separator="/">
+				<el-breadcrumb-item :to="{ name: 'catalog'}">
+				  products
+				</el-breadcrumb-item>
+				<el-breadcrumb-item>
+					<a href="./page-header.html">route 1</a>
+				</el-breadcrumb-item>
+				<!-- <el-breadcrumb-item>route 2</el-breadcrumb-item> -->
+			  </el-breadcrumb>
+			</template>
+			<template #content>
+			  <span class="text-large font-600 mr-3"> {{ product.title }} </span>
+			</template>
+		</el-page-header>
+		<!-- <h1>Title: {{ product.title }}</h1> -->
+		<!-- <router-link class="link-offset-1 link-secondary" :to="{ name: 'catalog'}">
 			Back to product
-		</router-link>
+		</router-link> -->
 		<hr>
 		<div class="alert alert-success">
 			price

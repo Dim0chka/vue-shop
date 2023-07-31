@@ -50,7 +50,7 @@ export default {
 			let oldToken = localStorage.getItem('CART__TOKEN')
 			let response = await fetch(`${BASEURL}load.php?token=${oldToken}`)
 			let {cart, token, needUpdate} = await response.json()
-			console.log(oldToken)
+			
 			if (needUpdate) {
 				localStorage.setItem('CART__TOKEN', token)
 			}

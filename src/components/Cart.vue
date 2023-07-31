@@ -59,7 +59,7 @@ import { mapGetters, mapActions } from 'vuex';
 	}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .disabled {
     opacity: 0.5;
     pointer-events: none;

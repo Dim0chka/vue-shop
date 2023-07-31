@@ -1,0 +1,35 @@
+*, :after, :before {
+    box-sizing : border-box;
+    margin : 0;
+    padding : 0;
+    color : inherit;
+    font : inherit;
+}
+
+body, html {
+    margin : 0;
+    padding : 0;
+    height : 100%;
+    position : relative;
+    font-family: 'Comfortaa', sans-serif;
+    font-size : 14px;
+    line-height : 1.4;
+    font-weight : 400;
+    color : $mainColor;
+    scroll-behavior : smooth;
+    background-color : $bg;
+}
+
+// h1,h2,h3,h4,h5,h6 {
+//     font-family: Gunny Rewritten;
+// }
+
+a {
+    text-decoration: none;
+    color: $mainColor;
+}
+
+.container {
+    max-width: 1150px;
+    margin: 0 auto;
+}
